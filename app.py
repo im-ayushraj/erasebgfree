@@ -99,4 +99,4 @@ def remove_background():
 
 if __name__ == '__main__':
     app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="127.0.0.1", port=5000)
