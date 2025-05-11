@@ -382,7 +382,7 @@
                     formData.append('image', file);
 
                     console.log('Sending request to server...'); // Debug log
-                    const response = await fetch('http://127.0.0.1:5000/remove-bg', {
+                    const response = await fetch('/remove-bg', {
                         method: 'POST',
                         body: formData
                     });

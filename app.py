@@ -12,7 +12,7 @@ app = Flask(__name__)
 # Configure CORS with specific settings
 CORS(app, resources={
     r"/*": {
-        "origins": ["http://127.0.0.1:5500", "http://localhost:5500", "http://127.0.0.1:5000"],
+        "origins": ["http://127.0.0.1:5000", "http://localhost:5000"],
         "methods": ["GET", "POST", "OPTIONS"],
         "allow_headers": ["Content-Type"]
     }
@@ -79,11 +79,6 @@ def remove_background():
                 'processed_image': f'data:image/png;base64,{base64_image}'
             })
             
-            # Add CORS headers explicitly
-            response.headers.add('Access-Control-Allow-Origin', '*')
-            response.headers.add('Access-Control-Allow-Methods', 'POST, OPTIONS')
-            response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-            
             return response
             
         except Exception as e:
@@ -104,5 +99,4 @@ def remove_background():
 
 if __name__ == '__main__':
     app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
-    port = int(os.environ.get("PORT", 10000))  # Render's default is 10000
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="127.0.0.1", port=5000, debug=True)
