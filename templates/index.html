@@ -1,465 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GH6YNY33VG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GH6YNY33VG');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CleanCut - Remove Backgrounds from Any Image</title>
-    <!-- Tailwind CSS via jsdelivr CDN -->
+    <title>Doclumin – Free Online Image & PDF Editing Tools | Background Remover, Compressor, Converter & More</title>
+    <meta name="description" content="Edit images and PDFs online for free with Doclumin. Instantly remove backgrounds, compress, convert, crop, add filters, watermark, split/merge PDFs, and more. No signup, no watermark—fast, secure, and easy-to-use tools for creators, businesses, and everyone.">
+    <!-- Tailwind CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- FontAwesome icons -->
+    <!-- FontAwesome CDN -->
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" sizes="128x128" href="{{ url_for('static', filename='favicon.png') }}">
+    
+    
     <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #10b981;
-            --dark: #111827;
-            --dark-lighter: #1f2937;
-            --dark-light: #374151;
-        }
-
         body {
-            background-color: var(--dark);
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            min-height: 100vh;
             color: #e5e7eb;
             font-family: 'Inter', sans-serif;
         }
-
-        .navbar {
-            background: rgba(17, 24, 39, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        .card {
+            background: rgba(31, 41, 55, 0.85);
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px 0 rgba(31,41,55,0.18);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-
-        .nav-link {
-            position: relative;
-            transition: all 0.3s ease;
+        .card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 16px 40px 0 rgba(99,102,241,0.18);
+            border-color: #6366f1;
         }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .drop-zone {
-            border: 2px dashed var(--dark-light);
-            transition: all 0.3s ease;
-            background: var(--dark-lighter);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .drop-zone:hover, .drop-zone.active {
-            border-color: var(--primary);
-            background-color: rgba(99, 102, 241, 0.1);
-        }
-
-        .upload-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 4px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        .gradient-bg {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        }
-
-        .processing {
-            position: relative;
-        }
-        
-        .processing::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(17, 24, 39, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(4px);
-        }
-        
-        .spinner {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(99, 102, 241, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .feature-card {
-            transition: all 0.3s ease;
-            background: var(--dark-lighter);
-            border: 1px solid var(--dark-light);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
-        }
-
-        .glass-effect {
-            background: rgba(31, 41, 55, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(99, 102, 241, 0.1);
-        }
-
-        .step-card {
-            position: relative;
-            padding-left: 3rem;
-        }
-
-        .step-card::before {
-            content: '';
-            position: absolute;
-            left: 1.5rem;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--primary);
-            opacity: 0.2;
-        }
-
-        .step-number {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 3rem;
-            height: 3rem;
-            background: var(--primary);
-            border-radius: 50%;
+        .feature-list li {
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
         }
-
-        .example-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 1rem;
+        .feature-list i {
+            margin-right: 0.5rem;
         }
-
-        .example-card img {
-            transition: transform 0.3s ease;
-        }
-
-        .example-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .example-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .example-card:hover .example-overlay {
-            opacity: 1;
+        .gradient-bar {
+            height: 6px;
+            width: 80px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #a5b4fc 0%, #f472b6 100%);
+            margin: 0 auto 2rem auto;
         }
     </style>
-</head>
-<body class="min-h-screen">
-    <!-- Navigation -->
-    <nav class="navbar fixed top-0 left-0 right-0 z-50">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between h-16">
-                <a href="#" class="text-2xl font-bold text-white">CleanCut</a>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="nav-link text-gray-300 hover:text-white">Home</a>
-                    <a href="#upload" class="nav-link text-gray-300 hover:text-white">Upload</a>
-                    <a href="#how-it-works" class="nav-link text-gray-300 hover:text-white">How It Works</a>
-                    <a href="#features" class="nav-link text-gray-300 hover:text-white">Features</a>
-                </div>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="gradient-bg text-white pt-32 pb-20">
-        <div class="container mx-auto px-4 text-center">
-            <h1 class="text-6xl font-bold mb-6">Remove Backgrounds from Any Image in Seconds</h1>
-            <p class="text-2xl mb-8 opacity-90">Fast, automatic, free – powered by AI</p>
-            <a href="#upload" class="bg-white text-indigo-600 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-opacity-90 transition-all duration-300 inline-flex items-center">
-                <i class="fas fa-cloud-upload-alt mr-3"></i> Upload Your Image
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9049792560616402"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="py-10 text-center">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-4 text-white drop-shadow">
+            Welcome to <span class="text-indigo-300",href="index.html">Doclumin.</span>
+        </h1>
+
+        <div class="gradient-bar"></div>
+        <p class="text-lg sm:text-xl text-indigo-100 max-w-2xl mx-auto mb-4">
+            Your all-in-one suite for fast, secure, and high-quality image and PDF editing online. Choose a tool to get started!
+        </p>
+        <div class="flex flex-wrap justify-center gap-3 mt-4">
+            <span class="bg-indigo-600 bg-opacity-80 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-semibold shadow">No Watermarks</span>
+            <span class="bg-pink-500 bg-opacity-80 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-semibold shadow">100% Free</span>
+            <span class="bg-green-500 bg-opacity-80 text-white px-4 py-2 rounded-full text-xs sm:text-sm font-semibold shadow">Secure &amp; Private</span>
+            <span class="bg-yellow-400 bg-opacity-80 text-gray-900 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold shadow">Lightning Fast</span>
+        </div>
+    </header>
+    
+
+    <!-- Main Cards Section -->
+    <main class="flex flex-col md:flex-row justify-center items-center gap-10 px-4 py-8 max-w-5xl mx-auto">
+        <!-- Image Tools Card -->
+        <div class="card flex-1 max-w-md p-8 flex flex-col items-center text-center mb-8 md:mb-0">
+            <div class="mb-4">
+                <i class="fas fa-image text-5xl text-indigo-400"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-3 text-indigo-200">Image Tools</h2>
+            <ul class="feature-list text-base text-indigo-100 mb-6 text-left">
+                <li><i class="fas fa-magic text-indigo-400"></i> AI Background Remover</li>
+                <li><i class="fas fa-compress-alt text-green-400"></i> Image Compressor</li>
+                <li><i class="fas fa-expand-arrows-alt text-yellow-400"></i> Image Resizer</li>
+                <li><i class="fas fa-exchange-alt text-pink-400"></i> Format Converter</li>
+                <li><i class="fas fa-sync-alt text-purple-400"></i> Rotate &amp; Flip</li>
+                <li><i class="fas fa-adjust text-blue-400"></i> Filters &amp; Adjust</li>
+                <li><i class="fas fa-crop text-yellow-400"></i> Crop, Border, Rounded Corners</li>
+                <li><i class="fas fa-pen-fancy text-purple-400"></i> Watermark</li>
+                <li><i class="fas fa-file-pdf text-red-400"></i> Image to PDF</li>
+            </ul>
+            <a href="/image-tools"
+               class="bg-indigo-500 hover:bg-indigo-600 text-white px-8 py-3 rounded-xl text-lg font-semibold shadow transition-all duration-200 inline-flex items-center">
+                <i class="fas fa-arrow-right mr-2"></i> Go to Image Tools
             </a>
         </div>
-    </section>
-
-    <!-- Upload Section -->
-    <section id="upload" class="py-20">
-        <div class="container mx-auto px-4">
-            <div class="max-w-4xl mx-auto glass-effect rounded-2xl shadow-2xl overflow-hidden">
-                <div class="p-8">
-                    <div id="drop-zone" class="drop-zone rounded-xl p-12 text-center cursor-pointer">
-                        <div class="mb-6 text-indigo-400">
-                            <i class="fas fa-cloud-upload-alt text-7xl"></i>
-                        </div>
-                        <h2 class="text-3xl font-semibold text-white mb-3">Drop your image here</h2>
-                        <p class="text-gray-400 mb-4 text-lg">or click to browse</p>
-                        <p class="text-sm text-gray-500">Supports JPG, PNG, WEBP, GIF, BMP (Max 16MB)</p>
-                        <input type="file" id="file-input" class="hidden" accept="image/*">
-                        <div id="upload-progress" class="upload-progress" style="width: 0%"></div>
-                    </div>
-                    <div id="error-message" class="mt-4 text-red-400 text-center hidden"></div>
-                </div>
+        <!-- PDF Tools Card -->
+        <div class="card flex-1 max-w-md p-8 flex flex-col items-center text-center">
+            <div class="mb-4">
+                <i class="fas fa-file-pdf text-5xl text-pink-400"></i>
             </div>
+            <h2 class="text-2xl font-bold mb-3 text-pink-200">PDF Tools</h2>
+            <ul class="feature-list text-base text-pink-100 mb-6 text-left">
+                <li><i class="fas fa-file-pdf text-indigo-400"></i> PDF Creation &amp; Conversion</li>
+                <li><i class="fas fa-cut text-yellow-400"></i> Split, Merge, Reorder Pages</li>
+                <li><i class="fas fa-lock text-green-400"></i> Secure, Unlock, Redact PDFs</li>
+                <li><i class="fas fa-highlighter text-pink-400"></i> Annotate &amp; Fill Forms</li>
+                <li><i class="fas fa-exchange-alt text-blue-400"></i> PDF to Word, Excel, Images, HTML</li>
+                <li><i class="fas fa-robot text-orange-400"></i> Smart Tools: Summarize, Translate, Chat</li>
+                <li><i class="fas fa-compress text-purple-400"></i> Compress PDF</li>
+            </ul>
+            <a href="/pdf-tools"
+               class="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-xl text-lg font-semibold shadow transition-all duration-200 inline-flex items-center">
+                <i class="fas fa-arrow-right mr-2"></i> Go to PDF Tools
+            </a>
         </div>
-    </section>
-
+    </main>
+<script type="text/javascript">
+	atOptions = {
+		'key' : 'e920f171ecc20a5f8ba27207472f112f',
+		'format' : 'iframe',
+		'height' : 600,
+		'width' : 160,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/e920f171ecc20a5f8ba27207472f112f/invoke.js"></script>
     <!-- How It Works Section -->
-    <section id="how-it-works" class="py-20 bg-dark-lighter">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-16">How It Works</h2>
-            <div class="max-w-4xl mx-auto space-y-12">
-                <div class="step-card">
-                    <div class="step-number">1</div>
-                    <h3 class="text-2xl font-semibold mb-4">Upload Your Image</h3>
-                    <p class="text-gray-400">Simply drag and drop your image or click to browse your files.</p>
+    <section class="py-16 bg-gray-900 bg-opacity-80">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-10 text-white">How Doclumin Works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="flex flex-col items-center text-center bg-gray-800 rounded-2xl p-6 shadow-lg">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-indigo-700 mb-4 shadow">
+                        <i class="fas fa-upload text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2 text-indigo-200">1. Upload</h3>
+                    <p class="text-gray-400 text-sm">Choose your image or PDF file. All uploads are secure and private.</p>
                 </div>
-                <div class="step-card">
-                    <div class="step-number">2</div>
-                    <h3 class="text-2xl font-semibold mb-4">AI Processing</h3>
-                    <p class="text-gray-400">Our advanced AI automatically removes the background from your image.</p>
+                <div class="flex flex-col items-center text-center bg-gray-800 rounded-2xl p-6 shadow-lg">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-pink-600 mb-4 shadow">
+                        <i class="fas fa-magic text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2 text-pink-200">2. Edit &amp; Convert</h3>
+                    <p class="text-gray-400 text-sm">Apply smart edits, compress, convert, or enhance your files with a click.</p>
                 </div>
-                <div class="step-card">
-                    <div class="step-number">3</div>
-                    <h3 class="text-2xl font-semibold mb-4">Download Result</h3>
-                    <p class="text-gray-400">Get your processed image with transparent background instantly.</p>
+                <div class="flex flex-col items-center text-center bg-gray-800 rounded-2xl p-6 shadow-lg">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-green-500 mb-4 shadow">
+                        <i class="fas fa-download text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2 text-green-100">3. Download</h3>
+                    <p class="text-gray-400 text-sm">Instantly download your processed file. No watermarks, no waiting.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="py-20">
-        <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-bold text-center mb-16">Features</h2>
+    <section class="py-16">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-10 text-white">Why Choose Doclumin?</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="feature-card p-8 rounded-2xl">
-                    <div class="text-indigo-400 mb-6">
-                        <i class="fas fa-bolt text-4xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">Fast Processing</h3>
-                    <p class="text-gray-400">Remove backgrounds in seconds with our advanced AI technology</p>
+                <div class="flex flex-col items-center text-center bg-gray-800 rounded-2xl p-6 shadow-lg">
+                    <i class="fas fa-lock text-3xl text-green-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-2 text-white">Secure &amp; Private</h3>
+                    <p class="text-gray-400 text-sm">Your files are never stored or shared. All processing is done securely.</p>
                 </div>
-                <div class="feature-card p-8 rounded-2xl">
-                    <div class="text-indigo-400 mb-6">
-                        <i class="fas fa-magic text-4xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">100% Automatic</h3>
-                    <p class="text-gray-400">No manual work needed - our AI handles everything</p>
+                <div class="flex flex-col items-center text-center bg-gray-800 rounded-2xl p-6 shadow-lg">
+                    <i class="fas fa-bolt text-3xl text-yellow-400 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-2 text-white">Fast &amp; Easy</h3>
+                    <p class="text-gray-400 text-sm">No sign-up, no waiting. Get results in seconds with a simple interface.</p>
                 </div>
-                <div class="feature-card p-8 rounded-2xl">
-                    <div class="text-indigo-400 mb-6">
-                        <i class="fas fa-lock text-4xl"></i>
-                    </div>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">Secure & Private</h3>
-                    <p class="text-gray-400">Your images are processed locally and never stored</p>
+                <div class="flex flex-col items-center text-center bg-gray-800 rounded-2xl p-6 shadow-lg">
+                    <i class="fas fa-gem text-3xl text-indigo-300 mb-4"></i>
+                    <h3 class="text-lg font-semibold mb-2 text-white">High Quality</h3>
+                    <p class="text-gray-400 text-sm">State-of-the-art AI and processing for the best possible results every time.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Call to Action -->
+    <section class="py-12 text-center">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white">Ready to get started?</h2>
+        <p class="text-lg text-indigo-100 mb-6">Pick a tool above and experience the easiest way to edit images and PDFs online.</p>
+        <a href="/image-tools"
+           class="bg-indigo-500 hover:bg-indigo-600 text-white px-8 py-3 rounded-xl text-lg font-semibold shadow transition-all duration-200 inline-flex items-center">
+            <i class="fas fa-image mr-2"></i> Image Tools
+        </a>
+        <a href="/pdf-tools" class="bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-xl text-lg font-semibold shadow transition-all duration-200 inline-flex items-center">
+            <i class="fas fa-file-pdf mr-2"></i> PDF Tools
+        </a>
+    </section>
+
     <!-- Footer -->
-    <footer class="bg-dark-lighter text-gray-400 py-12">
-        <div class="container mx-auto px-4">
-            <div class="text-center">
-                <p class="text-sm">&copy; 2024 CleanCut. Powered by rembg.</p>
-                <div class="flex justify-center space-x-6 mt-4">
-                    <a href="#" class="hover:text-white transition-colors">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="hover:text-white transition-colors">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="#" class="hover:text-white transition-colors">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
+    <footer class="py-6 text-center text-gray-400">
+        &copy; 2025 Doclumin. All rights reserved.
+        <a href="/sitemap.xml" target="_blank" rel="noopener" class="text-sm text-gray-400 hover:text-primary ml-4">Sitemap</a>
     </footer>
+    <!-- Google AdSense -->
 
-    <!-- Processing Section -->
-    <div id="processing-section" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-        <div class="bg-dark-lighter p-12 rounded-2xl text-center max-w-md">
-            <div class="spinner"></div>
-            <h3 class="text-2xl font-medium text-white mt-6 mb-3">Processing your image...</h3>
-            <p class="text-gray-400">This may take a few moments. Please wait.</p>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const dropZone = document.getElementById('drop-zone');
-            const fileInput = document.getElementById('file-input');
-            const processingSection = document.getElementById('processing-section');
-            const errorMessage = document.getElementById('error-message');
-            const uploadProgress = document.getElementById('upload-progress');
-
-            function showError(message) {
-                errorMessage.textContent = message;
-                errorMessage.classList.remove('hidden');
-                console.error('Error:', message);
-            }
-
-            // Handle drag and drop events
-            dropZone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                dropZone.classList.add('active');
-            });
-
-            dropZone.addEventListener('dragleave', () => {
-                dropZone.classList.remove('active');
-            });
-
-            dropZone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                dropZone.classList.remove('active');
-                
-                if (e.dataTransfer.files.length) {
-                    handleFile(e.dataTransfer.files[0]);
-                }
-            });
-
-            dropZone.addEventListener('click', () => {
-                fileInput.click();
-            });
-
-            fileInput.addEventListener('change', (e) => {
-                if (e.target.files.length) {
-                    handleFile(e.target.files[0]);
-                }
-            });
-
-            async function handleFile(file) {
-                // Validate file type
-                const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp'];
-                if (!validTypes.includes(file.type)) {
-                    showError("Please select a valid image file (JPG, PNG, GIF, BMP, WebP)");
-                    return;
-                }
-
-                // Check file size (max 16MB)
-                if (file.size > 16 * 1024 * 1024) {
-                    showError("File size too large. Maximum size is 16MB");
-                    return;
-                }
-
-                // Show processing state
-                processingSection.classList.remove('hidden');
-                uploadProgress.style.width = '0%';
-
-                try {
-                    const formData = new FormData();
-                    formData.append('image', file);
-
-                    console.log('Sending request to server...'); // Debug log
-                    const response = await fetch('/remove-bg', {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json().catch(() => ({}));
-                        throw new Error(errorData.error || `Server error: ${response.status}`);
-                    }
-
-                    const data = await response.json();
-                    console.log('Received response from server:', data); // Debug log
-
-                    if (data.success && data.processed_image) {
-                        console.log('Processing image data...'); // Debug log
-                        
-                        // Convert base64 to Blob
-                        const base64Data = data.processed_image.split(',')[1];
-                        console.log('Base64 data length:', base64Data.length); // Debug log
-                        
-                        const byteCharacters = atob(base64Data);
-                        const byteNumbers = new Array(byteCharacters.length);
-                        for (let i = 0; i < byteCharacters.length; i++) {
-                            byteNumbers[i] = byteCharacters.charCodeAt(i);
-                        }
-                        const byteArray = new Uint8Array(byteNumbers);
-                        const blob = new Blob([byteArray], { type: 'image/png' });
-                        console.log('Blob created, size:', blob.size); // Debug log
-
-                        // Create object URL and trigger download
-                        const url = URL.createObjectURL(blob);
-                        console.log('Object URL created:', url); // Debug log
-                        
-                        const link = document.createElement('a');
-                        link.href = url;
-                        link.download = `background-removed-${new Date().toISOString().replace(/[:.]/g, '-')}.png`;
-                        link.style.display = 'none';
-                        
-                        // Append link, click it, and clean up
-                        document.body.appendChild(link);
-                        console.log('Triggering download...'); // Debug log
-                        link.click();
-                        
-                        // Clean up
-                        setTimeout(() => {
-                            document.body.removeChild(link);
-                            URL.revokeObjectURL(url);
-                            console.log('Cleanup completed'); // Debug log
-                        }, 100);
-                    } else {
-                        console.error('Server response error:', data.error); // Debug log
-                        showError(data.error || "Failed to process image");
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    showError(error.message || "An error occurred while processing the image. Please try again.");
-                } finally {
-                    setTimeout(() => {
-                        processingSection.classList.add('hidden');
-                        uploadProgress.style.width = '0%';
-                    }, 500);
-                }
-            }
-
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9049792560616402"
+     crossorigin="anonymous"></script>
 </body>
 </html>

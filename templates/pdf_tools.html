@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GH6YNY33VG"></script>
+
+<script>
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GH6YNY33VG');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Online PDF Tools Suite – Merge, Split, Compress, Convert & Edit PDFs | Doclumin</title>
+    <meta name="description" content="Edit, merge, split, compress, and convert PDFs online for free with Doclumin’s all-in-one PDF tools suite. Instantly create, secure, and manage PDF files—no signup, no watermark. Fast, secure, and easy-to-use PDF solutions for everyone.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="128x128" href="{{ url_for('static', filename='favicon.png') }}">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --dark: #111827;
+            --dark-lighter: #1f2937;
+            --dark-light: #374151;
+        }
+        body {
+            background-color: var(--dark);
+            color: #e5e7eb;
+            font-family: 'Inter', sans-serif;
+        }
+        .navbar {
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        }
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .feature-card {
+            transition: all 0.3s ease;
+            background: var(--dark-lighter);
+            border: 1px solid var(--dark-light);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.1);
+        }
+        .glass-effect {
+            background: rgba(31, 41, 55, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.1);
+        }
+        .step-card {
+            position: relative;
+            padding-left: 3rem;
+        }
+        .step-card::before {
+            content: '';
+            position: absolute;
+            left: 1.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+            opacity: 0.2;
+        }
+        .step-number {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        /* Smooth dropdown animation for mobile menu */
+        @media (max-width: 767px) {
+            #nav-menu {
+                transition: all 0.2s cubic-bezier(.4,0,.2,1);
+                box-shadow: 0 8px 32px 0 rgba(31,41,55,0.18);
+            }
+            #nav-menu.animate-dropdown {
+                animation: dropdownIn 0.2s;
+            }
+            @keyframes dropdownIn {
+                from { opacity: 0; transform: translateY(-10px);}
+                to { opacity: 1; transform: translateY(0);}
+            }
+        }
+        /* Ensure vertical dropdown on mobile with list style */
+        @media (max-width: 767px) {
+            #nav-menu {
+                flex-direction: column !important;
+                align-items: stretch !important;
+                left: 0;
+                right: 0;
+                width: 100vw !important;
+                min-width: 0;
+                border-radius: 0 0 1rem 1rem;
+                box-shadow: 0 8px 32px 0 rgba(31,41,55,0.18);
+                background: #f3f4f6 !important; /* Tailwind gray-100 */
+                padding-bottom: 0.5rem;
+                padding-top: 0.5rem;
+            }
+            #nav-menu ul {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            #nav-menu li {
+                width: 100%;
+                list-style: none;
+            }
+            #nav-menu a {
+                width: 100%;
+                text-align: left;
+                font-size: 1rem;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-950 text-gray-100">
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-gray-950 bg-opacity-90 shadow-lg">
+        <div class="container mx-auto px-2 sm:px-4">
+            <div class="flex items-center justify-between h-16 relative">
+                <a href="/" class="text-lg sm:text-xl md:text-2xl font-bold text-indigo-400 tracking-wide">Doclumin</a>
+                <!-- Hamburger for mobile -->
+                <button id="nav-toggle" class="md:hidden text-gray-700 focus:outline-none text-2xl ml-2">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <!-- Vertical dropdown menu for mobile -->
+                <div id="nav-menu"
+                    class="hidden md:flex flex-col md:flex-row md:space-x-4 items-center absolute md:static top-16 left-0 w-full md:w-auto bg-gray-100 md:bg-transparent z-50 rounded-b-xl shadow-lg md:shadow-none text-base sm:text-lg transition-all duration-200">
+                    <ul class="w-full md:flex md:flex-row md:space-x-4 p-0 m-0">
+                        <li class="border-b border-gray-200 md:border-0">
+                            <a href="/" class="nav-link block text-gray-700 hover:text-indigo-500 px-6 py-3 rounded transition text-base w-full text-left md:w-auto md:text-center md:px-3 md:py-2 md:text-lg">Image Tools</a>
+                        </li>
+                        <li class="border-b border-gray-200 md:border-0">
+                            <a href="/pdf-tools" class="nav-link block text-indigo-500 bg-gray-200 px-6 py-3 rounded font-semibold text-base w-full text-left md:w-auto md:text-center md:px-3 md:py-2 md:text-lg">PDF Tools</a>
+                        </li>
+                        <li class="border-b border-gray-200 md:border-0">
+                            <a href="#pdf-compression" class="nav-link block text-gray-700 hover:text-indigo-500 px-6 py-3 rounded transition text-base w-full text-left md:w-auto md:text-center md:px-3 md:py-2 md:text-lg">Compress PDF</a>
+                        </li>
+                        <li class="border-b border-gray-200 md:border-0">
+                            <a href="#pdf-tools" class="nav-link block text-gray-700 hover:text-indigo-500 px-6 py-3 rounded transition text-base w-full text-left md:w-auto md:text-center md:px-3 md:py-2 md:text-lg">All PDF Tools</a>
+                        </li>
+                        <li class="border-b border-gray-200 md:border-0">
+                            <a href="#how-it-works" class="nav-link block text-gray-700 hover:text-indigo-500 px-6 py-3 rounded transition text-base w-full text-left md:w-auto md:text-center md:px-3 md:py-2 md:text-lg">How It Works</a>
+                        </li>
+                        <li>
+                            <a href="#features" class="nav-link block text-gray-700 hover:text-indigo-500 px-6 py-3 rounded transition text-base w-full text-left md:w-auto md:text-center md:px-3 md:py-2 md:text-lg">Features</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white pt-32 pb-20">
+        <div class="container mx-auto px-2 sm:px-4 text-center">
+            <h1 class="text-3xl md:text-6xl font-bold mb-6">All-in-One PDF Tools Suite</h1>
+            <p class="text-base md:text-2xl mb-8 opacity-90">Create, edit, convert, and secure your PDFs with Doclumin</p>
+            <a href="#pdf-tools" class="bg-white text-indigo-600 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-opacity-90 transition-all duration-300 inline-flex items-center shadow-lg">
+                <i class="fas fa-file-pdf mr-3"></i> Explore PDF Tools
+            </a>
+            <!-- Tools Overview Grid -->
+            <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="bg-gray-900 bg-opacity-80 rounded-2xl p-6 flex flex-col items-center shadow w-full">
+                    <i class="fas fa-file-pdf text-indigo-400 text-3xl mb-3"></i>
+                    <h3 class="text-lg font-semibold mb-1 text-indigo-200">PDF Creation</h3>
+                    <p class="text-gray-400 text-sm">Convert text, images, or webpages into PDF files.</p>
+                </div>
+                <div class="bg-gray-900 bg-opacity-80 rounded-2xl p-6 flex flex-col items-center shadow w-full">
+                    <i class="fas fa-cut text-yellow-400 text-3xl mb-3"></i>
+                    <h3 class="text-lg font-semibold mb-1 text-yellow-200">PDF Editing</h3>
+                    <p class="text-gray-400 text-sm">Split, merge, reorder, and extract PDF pages.</p>
+                </div>
+                <div class="bg-gray-900 bg-opacity-80 rounded-2xl p-6 flex flex-col items-center shadow w-full">
+                    <i class="fas fa-lock text-green-400 text-3xl mb-3"></i>
+                    <h3 class="text-lg font-semibold mb-1 text-green-200">PDF Security</h3>
+                    <p class="text-gray-400 text-sm">Protect, unlock, redact, and manage PDF permissions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+ <!-- PDF Compression Tool Section -->
+    <section id="pdf-compression" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-2 sm:px-4 max-w-2xl">
+            <h2 class="text-4xl font-bold text-center mb-6 text-purple-300">Compress PDF Online – Reduce PDF File Size Instantly</h2>
+            <p class="text-lg text-center text-gray-300 mb-10">
+                Shrink your PDF files without losing quality. Use our free, secure, and fast PDF compressor to make your documents easier to share and store. No watermark, no signup required.
+            </p>
+            <div class="bg-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center">
+                <form id="pdf-compress-form" class="w-full max-w-md flex flex-col items-center gap-4">
+                    <label for="compress-input" class="w-full flex flex-col items-center justify-center border-2 border-dashed border-purple-400 rounded-xl py-8 px-4 cursor-pointer hover:bg-gray-700 transition">
+                        <i class="fas fa-file-pdf text-5xl text-purple-400 mb-3"></i>
+                        <span class="text-gray-200 font-semibold mb-2">Click to upload your PDF</span>
+                        <span class="text-gray-400 text-sm">or drag &amp; drop here</span>
+                        <input type="file" id="compress-input" accept="application/pdf" class="hidden" />
+                    </label>
+                    <input type="number" id="compress-size" placeholder="Target size in KB (e.g. 500)" class="block w-full bg-gray-900 text-gray-200 rounded px-4 py-2 mt-2 border border-gray-700 focus:border-purple-400 focus:outline-none" min="10" />
+                    <button id="compress-btn" type="button" class="bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-xl text-lg font-semibold shadow w-full transition-all duration-200">Compress PDF</button>
+                </form>
+                <div id="compress-result" class="mt-6 w-full text-center"></div>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript">
+	atOptions = {
+		'key' : 'e920f171ecc20a5f8ba27207472f112f',
+		'format' : 'iframe',
+		'height' : 600,
+		'width' : 160,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/e920f171ecc20a5f8ba27207472f112f/invoke.js"></script>
+    <!-- PDF Tools Section -->
+    <section id="pdf-tools" class="py-20">
+        <div class="container mx-auto px-2 sm:px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 text-white">PDF Tools</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Image to PDF -->
+                <div class="flex flex-col bg-gray-900 rounded-2xl shadow-lg p-4 md:p-8 w-full max-w-md mx-auto items-center mb-6">
+                    <h2 class="text-xl font-bold text-red-400 mb-4 text-center">🗎 Image to PDF</h2>
+                    <label for="pdf-input" class="w-full flex flex-col items-center justify-center border-2 border-dashed border-red-400 rounded-xl py-8 px-4 cursor-pointer hover:bg-gray-800 transition mb-2">
+                        <i class="fas fa-file-image text-4xl text-red-400 mb-2"></i>
+                        <span class="text-gray-200 font-semibold mb-1">Click to upload images</span>
+                        <span class="text-gray-400 text-sm">or drag &amp; drop here</span>
+                        <input type="file" id="pdf-input" accept="image/*" multiple class="hidden" />
+                    </label>
+                    <button id="pdf-btn" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded shadow w-full max-w-xs">Create PDF</button>
+                    <div id="pdf-result" class="mt-4"></div>
+                </div>
+                <!-- PDF Merger -->
+                <div class="flex flex-col bg-gray-900 rounded-2xl shadow-lg p-4 md:p-8 w-full max-w-md mx-auto items-center mb-6">
+                    <h2 class="text-xl font-bold text-yellow-400 mb-4 text-center">➕ PDF Merger</h2>
+                    <label for="merge-input" class="w-full flex flex-col items-center justify-center border-2 border-dashed border-yellow-400 rounded-xl py-8 px-4 cursor-pointer hover:bg-gray-800 transition mb-2">
+                        <i class="fas fa-file-pdf text-4xl text-yellow-400 mb-2"></i>
+                        <span class="text-gray-200 font-semibold mb-1">Click to upload PDFs</span>
+                        <span class="text-gray-400 text-sm">or drag &amp; drop here</span>
+                        <input type="file" id="merge-input" accept="application/pdf" multiple class="hidden" />
+                    </label>
+                    <button id="merge-btn" class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded shadow w-full max-w-xs">Merge PDFs</button>
+                    <div id="merge-result" class="mt-4"></div>
+                </div>
+                <!-- PDF to Images -->
+                <div class="flex flex-col bg-gray-900 rounded-2xl shadow-lg p-4 md:p-8 w-full max-w-md mx-auto items-center mb-6">
+                    <h2 class="text-xl font-bold text-blue-400 mb-4 text-center">🖼️ PDF to Images</h2>
+                    <label for="pdf2img-input" class="w-full flex flex-col items-center justify-center border-2 border-dashed border-blue-400 rounded-xl py-8 px-4 cursor-pointer hover:bg-gray-800 transition mb-2">
+                        <i class="fas fa-file-pdf text-4xl text-blue-400 mb-2"></i>
+                        <span class="text-gray-200 font-semibold mb-1">Click to upload PDF</span>
+                        <span class="text-gray-400 text-sm">or drag &amp; drop here</span>
+                        <input type="file" id="pdf2img-input" accept="application/pdf" class="hidden" />
+                    </label>
+                    <button id="pdf2img-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded shadow w-full max-w-xs">Convert</button>
+                    <div id="pdf2img-result" class="mt-4"></div>
+                </div>
+                <!-- PDF to Word -->
+                <div class="flex flex-col bg-gray-900 rounded-2xl shadow-lg p-4 md:p-8 w-full max-w-md mx-auto items-center mb-6">
+                    <h2 class="text-xl font-bold text-blue-400 mb-4 text-center">📝 PDF to Word</h2>
+                    <label for="pdf2word-input" class="w-full flex flex-col items-center justify-center border-2 border-dashed border-blue-400 rounded-xl py-8 px-4 cursor-pointer hover:bg-gray-800 transition mb-2">
+                        <i class="fas fa-file-word text-4xl text-blue-400 mb-2"></i>
+                        <span class="text-gray-200 font-semibold mb-1">Click to upload PDF</span>
+                        <span class="text-gray-400 text-sm">or drag &amp; drop here</span>
+                        <input type="file" id="pdf2word-input" accept="application/pdf" class="hidden" />
+                    </label>
+                    <button id="pdf2word-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded shadow w-full max-w-xs">Convert</button>
+                    <div id="pdf2word-result" class="mt-4"></div>
+                </div>
+                <!-- PDF to Excel -->
+                <div class="flex flex-col bg-gray-900 rounded-2xl shadow-lg p-4 md:p-8 w-full max-w-md mx-auto items-center mb-6">
+                    <h2 class="text-xl font-bold text-green-400 mb-4 text-center">📊 PDF to Excel</h2>
+                    <label for="pdf2excel-input" class="w-full flex flex-col items-center justify-center border-2 border-dashed border-green-400 rounded-xl py-8 px-4 cursor-pointer hover:bg-gray-800 transition mb-2">
+                        <i class="fas fa-file-excel text-4xl text-green-400 mb-2"></i>
+                        <span class="text-gray-200 font-semibold mb-1">Click to upload PDF</span>
+                        <span class="text-gray-400 text-sm">or drag &amp; drop here</span>
+                        <input type="file" id="pdf2excel-input" accept="application/pdf" class="hidden" />
+                    </label>
+                    <button id="pdf2excel-btn" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded shadow w-full max-w-xs">Convert</button>
+                    <div id="pdf2excel-result" class="mt-4"></div>
+                </div>
+                <!-- PDF to HTML -->
+                <div class="flex flex-col bg-gray-900 rounded-2xl shadow-lg p-4 md:p-8 w-full max-w-md mx-auto items-center mb-6">
+                    <h2 class="text-xl font-bold text-pink-400 mb-4 text-center">🌐 PDF to HTML</h2>
+                    <label for="pdf2html-input" class="w-full flex flex-col items-center justify-center border-2 border-dashed border-pink-400 rounded-xl py-8 px-4 cursor-pointer hover:bg-gray-800 transition mb-2">
+                        <i class="fas fa-file-code text-4xl text-pink-400 mb-2"></i>
+                        <span class="text-gray-200 font-semibold mb-1">Click to upload PDF</span>
+                        <span class="text-gray-400 text-sm">or drag &amp; drop here</span>
+                        <input type="file" id="pdf2html-input" accept="application/pdf" class="hidden" />
+                    </label>
+                    <button id="pdf2html-btn" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded shadow w-full max-w-xs">Convert</button>
+                    <div id="pdf2html-result" class="mt-4"></div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+   
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-2 sm:px-4">
+            <h2 class="text-4xl font-bold text-center mb-16 text-white">How It Works</h2>
+            <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:justify-between md:items-start gap-8 md:gap-12">
+                <!-- Step 1 -->
+                <div class="flex-1 flex flex-col items-center text-center bg-gray-800 rounded-2xl p-4 md:p-8 shadow-lg mb-6 md:mb-0">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-indigo-700 mb-4 shadow">
+                        <i class="fas fa-upload text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2 text-indigo-200">1. Upload Your PDF or Files</h3>
+                    <p class="text-gray-400 mb-2">Drag &amp; drop or browse to select your PDF or input files.</p>
+                    <ul class="text-gray-400 text-sm space-y-1">
+                        <li><i class="fas fa-check-circle text-green-400 mr-1"></i> Supports PDF, images, text, and more</li>
+                        <li><i class="fas fa-check-circle text-green-400 mr-1"></i> Up to 16MB per file</li>
+                    </ul>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex-1 flex flex-col items-center text-center bg-gray-800 rounded-2xl p-4 md:p-8 shadow-lg mb-6 md:mb-0">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-pink-700 mb-4 shadow">
+                        <i class="fas fa-robot text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2 text-pink-200">2. Choose Your PDF Tool</h3>
+                    <p class="text-gray-400 mb-2">Select from creation, editing, conversion, security, or smart tools.</p>
+                    <ul class="text-gray-400 text-sm space-y-1">
+                        <li><i class="fas fa-file-pdf text-indigo-400 mr-1"></i> Create or convert PDFs</li>
+                        <li><i class="fas fa-cut text-yellow-400 mr-1"></i> Split, merge, or reorder pages</li>
+                        <li><i class="fas fa-lock text-green-400 mr-1"></i> Secure or unlock your PDFs</li>
+                    </ul>
+                </div>
+                <!-- Step 3 -->
+                <div class="flex-1 flex flex-col items-center text-center bg-gray-800 rounded-2xl p-4 md:p-8 shadow-lg">
+                    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-blue-700 mb-4 shadow">
+                        <i class="fas fa-download text-3xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-2 text-blue-200">3. Download &amp; Use</h3>
+                    <p class="text-gray-400 mb-2">Preview and download your processed PDF instantly.</p>
+                    <ul class="text-gray-400 text-sm space-y-1">
+                        <li><i class="fas fa-bolt text-yellow-400 mr-1"></i> Fast, high-quality results</li>
+                        <li><i class="fas fa-lock text-green-400 mr-1"></i> No watermark, no signup needed</li>
+                        <li><i class="fas fa-share-alt text-pink-400 mr-1"></i> Ready for web, print, or sharing</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="max-w-3xl mx-auto mt-12 text-center">
+                <p class="text-gray-400 text-lg">
+                    <span class="font-semibold text-indigo-300">Doclumin</span> makes PDF editing effortless for everyone.<br>
+                    All processing is done securely in the cloud – your files are never stored.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-2 sm:px-4">
+            <h2 class="text-4xl font-bold text-center mb-16 text-white">PDF Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="feature-card p-4 md:p-8 rounded-2xl bg-gray-800 shadow flex flex-col items-center text-center">
+                    <div class="text-indigo-400 mb-6">
+                        <i class="fas fa-file-pdf text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">PDF Creation</h3>
+                    <p class="text-gray-400">Convert text, images, or webpages into high-quality PDFs.</p>
+                </div>
+                <div class="feature-card p-4 md:p-8 rounded-2xl bg-gray-800 shadow flex flex-col items-center text-center">
+                    <div class="text-yellow-400 mb-6">
+                        <i class="fas fa-cut text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">PDF Editing</h3>
+                    <p class="text-gray-400">Split, merge, reorder, extract, and delete PDF pages easily.</p>
+                </div>
+                <div class="feature-card p-4 md:p-8 rounded-2xl bg-gray-800 shadow flex flex-col items-center text-center">
+                    <div class="text-green-400 mb-6">
+                        <i class="fas fa-lock text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">PDF Security</h3>
+                    <p class="text-gray-400">Add or remove passwords, redact, and manage permissions.</p>
+                </div>
+                <div class="feature-card p-4 md:p-8 rounded-2xl bg-gray-800 shadow flex flex-col items-center text-center">
+                    <div class="text-blue-400 mb-6">
+                        <i class="fas fa-exchange-alt text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">PDF Conversion</h3>
+                    <p class="text-gray-400">Convert PDFs to Word, Excel, images, text, HTML, and more.</p>
+                </div>
+                <div class="feature-card p-4 md:p-8 rounded-2xl bg-gray-800 shadow flex flex-col items-center text-center">
+                    <div class="text-pink-400 mb-6">
+                        <i class="fas fa-highlighter text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">Annotation &amp; Forms</h3>
+                    <p class="text-gray-400">Highlight, comment, fill forms, and sign PDFs digitally.</p>
+                </div>
+                <div class="feature-card p-4 md:p-8 rounded-2xl bg-gray-800 shadow flex flex-col items-center text-center">
+                    <div class="text-orange-400 mb-6">
+                        <i class="fas fa-robot text-4xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">Smart Tools</h3>
+                    <p class="text-gray-400">Batch process, summarize, translate, and chat with PDFs.</p>
+                </div>
+            </div>
+            <div class="max-w-2xl mx-auto mt-12 text-center">
+                <p class="text-gray-400 text-lg">
+                    <span class="font-semibold text-indigo-300">Doclumin</span> is your all-in-one solution for fast, secure, and high-quality PDF editing online.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="container mx-auto px-2 sm:px-4">
+            <div class="flex flex-col items-center">
+                <a href="/" class="text-2xl font-bold text-indigo-400 mb-2 tracking-wide">Doclumin</a>
+                <p class="text-sm mb-4 text-gray-400">© 2024 Doclumin. All rights reserved.</p>
+                <div class="flex justify-center space-x-6 mt-2">
+                    <a href="#" class="hover:text-indigo-400 transition-colors text-xl" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="hover:text-indigo-400 transition-colors text-xl" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="hover:text-indigo-400 transition-colors text-xl" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+                <p class="text-xs text-gray-600 mt-6">Made with <span class="text-pink-400">♥</span> for creators &amp; developers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Image to PDF
+        document.getElementById('pdf-btn').onclick = async function() {
+            const files = document.getElementById('pdf-input').files;
+            const resultDiv = document.getElementById('pdf-result');
+            resultDiv.innerHTML = '';
+            if (!files.length) {
+                resultDiv.innerHTML = '<span class="text-red-400">Select at least one image.</span>';
+                return;
+            }
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('images', files[i]);
+            }
+            resultDiv.innerHTML = '<span class="text-pink-300">Processing...</span>';
+            const res = await fetch('/pdf', { method: 'POST', body: formData });
+            if (!res.ok) {
+                resultDiv.innerHTML = '<span class="text-red-400">Failed to create PDF.</span>';
+                return;
+            }
+            const data = await res.json();
+            if (data.success && data.pdf_url) {
+                resultDiv.innerHTML = `<a href="${data.pdf_url}" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded mt-2 inline-block" download="images.pdf"><i class="fas fa-download"></i> Download PDF</a>`;
+            } else {
+                resultDiv.innerHTML = `<span class="text-red-400">${data.error || 'Failed to create PDF.'}</span>`;
+            }
+        };
+
+        // PDF Merger
+        document.getElementById('merge-btn').onclick = async function() {
+            const files = document.getElementById('merge-input').files;
+            const resultDiv = document.getElementById('merge-result');
+            resultDiv.innerHTML = '';
+            if (!files.length) {
+                resultDiv.innerHTML = '<span class="text-red-400">Select at least two PDFs.</span>';
+                return;
+            }
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('pdfs', files[i]);
+            }
+            resultDiv.innerHTML = '<span class="text-yellow-300">Processing...</span>';
+            const res = await fetch('/pdf-merge', { method: 'POST', body: formData });
+            if (!res.ok) {
+                resultDiv.innerHTML = '<span class="text-red-400">Failed to merge PDFs.</span>';
+                return;
+            }
+            const data = await res.json();
+            if (data.success && data.pdf_url) {
+                resultDiv.innerHTML = `<a href="${data.pdf_url}" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded mt-2 inline-block" download="merged.pdf"><i class="fas fa-download"></i> Download Merged PDF</a>`;
+            } else {
+                resultDiv.innerHTML = `<span class="text-red-400">${data.error || 'Failed to merge PDFs.'}</span>`;
+            }
+        };
+
+        // PDF to Images
+        document.getElementById('pdf2img-btn').onclick = async function() {
+            const file = document.getElementById('pdf2img-input').files[0];
+            const resultDiv = document.getElementById('pdf2img-result');
+            resultDiv.innerHTML = '';
+            if (!file) {
+                resultDiv.innerHTML = '<span class="text-red-400">Select a PDF.</span>';
+                return;
+            }
+            const formData = new FormData();
+            formData.append('pdf', file);
+            resultDiv.innerHTML = '<span class="text-blue-300">Processing...</span>';
+            const res = await fetch('/pdf-to-images', { method: 'POST', body: formData });
+            if (!res.ok) {
+                resultDiv.innerHTML = '<span class="text-red-400">Failed to convert PDF.</span>';
+                return;
+            }
+            const data = await res.json();
+            if (data.success && data.images && data.images.length) {
+                resultDiv.innerHTML = data.images.map((img, i) =>
+                    `<a href="${img}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mt-2 inline-block mr-2" download="page${i+1}.png"><i class="fas fa-download"></i> Page ${i+1}</a>`
+                ).join('');
+            } else {
+                resultDiv.innerHTML = `<span class="text-red-400">${data.error || 'Failed to convert PDF.'}</span>`;
+            }
+        };
+
+        // PDF to Word
+        document.getElementById('pdf2word-btn').onclick = async function() {
+            const file = document.getElementById('pdf2word-input').files[0];
+            const resultDiv = document.getElementById('pdf2word-result');
+            resultDiv.innerHTML = '';
+            if (!file) {
+                resultDiv.innerHTML = '<span class="text-red-400">Select a PDF.</span>';
+                return;
+            }
+            const formData = new FormData();
+            formData.append('pdf', file);
+            resultDiv.innerHTML = '<span class="text-blue-300">Processing...</span>';
+            const res = await fetch('/pdf-to-word', { method: 'POST', body: formData });
+            if (!res.ok) {
+                resultDiv.innerHTML = '<span class="text-red-400">Failed to convert PDF.</span>';
+                return;
+            }
+            const data = await res.json();
+            if (data.success && data.word_url) {
+                resultDiv.innerHTML = `<a href="${data.word_url}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mt-2 inline-block" download="converted.docx"><i class="fas fa-download"></i> Download Word</a>`;
+            } else {
+                resultDiv.innerHTML = `<span class="text-red-400">${data.error || 'Failed to convert PDF.'}</span>`;
+            }
+        };
+
+        // PDF to Excel
+        document.getElementById('pdf2excel-btn').onclick = async function() {
+            const file = document.getElementById('pdf2excel-input').files[0];
+            const resultDiv = document.getElementById('pdf2excel-result');
+            resultDiv.innerHTML = '';
+            if (!file) {
+                resultDiv.innerHTML = '<span class="text-red-400">Select a PDF.</span>';
+                return;
+            }
+            const formData = new FormData();
+            formData.append('pdf', file);
+            resultDiv.innerHTML = '<span class="text-green-300">Processing...</span>';
+            const res = await fetch('/pdf-to-excel', { method: 'POST', body: formData });
+            if (!res.ok) {
+                resultDiv.innerHTML = '<span class="text-red-400">Failed to convert PDF.</span>';
+                return;
+            }
+            const data = await res.json();
+            if (data.success && data.excel_url) {
+                resultDiv.innerHTML = `<a href="${data.excel_url}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mt-2 inline-block" download="converted.xlsx"><i class="fas fa-download"></i> Download Excel</a>`;
+            } else {
+                resultDiv.innerHTML = `<span class="text-red-400">${data.error || 'Failed to convert PDF.'}</span>`;
+            }
+        };
+
+        // PDF to HTML
+        document.getElementById('pdf2html-btn').onclick = async function() {
+            const file = document.getElementById('pdf2html-input').files[0];
+            const resultDiv = document.getElementById('pdf2html-result');
+            resultDiv.innerHTML = '';
+            if (!file) {
+                resultDiv.innerHTML = '<span class="text-red-400">Select a PDF.</span>';
+                return;
+            }
+            const formData = new FormData();
+            formData.append('pdf', file);
+            resultDiv.innerHTML = '<span class="text-pink-300">Processing...</span>';
+            const res = await fetch('/pdf-to-html', { method: 'POST', body: formData });
+            if (!res.ok) {
+                resultDiv.innerHTML = '<span class="text-red-400">Failed to convert PDF.</span>';
+                return;
+            }
+            const data = await res.json();
+            if (data.success && data.html_url) {
+                resultDiv.innerHTML = `<a href="${data.html_url}" class="bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded mt-2 inline-block" download="converted.html"><i class="fas fa-download"></i> Download HTML</a>`;
+            } else {
+                resultDiv.innerHTML = `<span class="text-red-400">${data.error || 'Failed to convert PDF.'}</span>`;
+            }
+        };
+
+        // Drag & drop for PDF compression
+        const compressInput = document.getElementById('compress-input');
+        const compressForm = document.getElementById('pdf-compress-form');
+        const dropArea = compressForm.querySelector('label[for="compress-input"]');
+
+        dropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropArea.classList.add('bg-purple-900', 'bg-opacity-20');
+        });
+        dropArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('bg-purple-900', 'bg-opacity-20');
+        });
+        dropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropArea.classList.remove('bg-purple-900', 'bg-opacity-20');
+            if (e.dataTransfer.files.length) {
+                compressInput.files = e.dataTransfer.files;
+            }
+        });
+
+        // PDF Compressor
+        document.getElementById('compress-btn').onclick = async function() {
+            const file = document.getElementById('compress-input').files[0];
+            const targetSize = document.getElementById('compress-size').value;
+            const resultDiv = document.getElementById('compress-result');
+            resultDiv.innerHTML = '';
+            if (!file || !targetSize) {
+                resultDiv.innerHTML = '<span class="text-red-400">Select a PDF and enter target size.</span>';
+                return;
+            }
+            const formData = new FormData();
+            formData.append('pdf', file);
+            formData.append('target_size', targetSize);
+            resultDiv.innerHTML = '<span class="text-purple-300">Processing...</span>';
+            const res = await fetch('/pdf-compress', { method: 'POST', body: formData });
+            if (!res.ok) {
+                resultDiv.innerHTML = '<span class="text-red-400">Failed to compress PDF.</span>';
+                return;
+            }
+            const data = await res.json();
+            if (data.success && data.pdf_url) {
+                let note = data.note ? `<div class="text-yellow-400 mt-2">${data.note}</div>` : '';
+                resultDiv.innerHTML = `<a href="${data.pdf_url}" class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-xl mt-2 inline-block font-semibold shadow" download="compressed.pdf"><i class="fas fa-download"></i> Download Compressed PDF</a>${note}`;
+            } else {
+                resultDiv.innerHTML = `<span class="text-red-400">${data.error || 'Failed to compress PDF.'}</span>`;
+            }
+        };
+
+        // Enhance drag & drop for all tool file inputs
+        function enhanceDropArea(inputId, labelSelector) {
+            const input = document.getElementById(inputId);
+            const label = document.querySelector(labelSelector);
+            if (!input || !label) return;
+            label.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                label.classList.add('bg-opacity-30', 'bg-gray-700');
+            });
+            label.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                label.classList.remove('bg-opacity-30', 'bg-gray-700');
+            });
+            label.addEventListener('drop', (e) => {
+                e.preventDefault();
+                label.classList.remove('bg-opacity-30', 'bg-gray-700');
+                if (e.dataTransfer.files.length) {
+                    input.files = e.dataTransfer.files;
+                }
+            });
+        }
+        // Call for each tool
+        enhanceDropArea('pdf-input', 'label[for="pdf-input"]');
+        enhanceDropArea('merge-input', 'label[for="merge-input"]');
+        enhanceDropArea('pdf2img-input', 'label[for="pdf2img-input"]');
+        enhanceDropArea('pdf2word-input', 'label[for="pdf2word-input"]');
+        enhanceDropArea('pdf2excel-input', 'label[for="pdf2excel-input"]');
+        enhanceDropArea('pdf2html-input', 'label[for="pdf2html-input"]');
+        enhanceDropArea('compress-input', 'label[for="compress-input"]');
+
+        // Hamburger menu logic
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        navToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            navMenu.classList.toggle('hidden');
+            navMenu.classList.toggle('animate-dropdown');
+        });
+
+        // Close nav menu on link click (mobile)
+        document.querySelectorAll('#nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 768) navMenu.classList.add('hidden');
+            });
+        });
+
+        // Close nav menu on outside click or Escape
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth < 768 && !navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                navMenu.classList.add('hidden');
+            }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                navMenu.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

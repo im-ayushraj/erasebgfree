@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GH6YNY33VG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GH6YNY33VG');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Online Image to PDF Converter – Convert Images to PDF Instantly | Doclumin</title>
+    <meta name="description" content="Convert images to PDF online for free with Doclumin’s fast and easy Image to PDF tool. Upload multiple images, merge them into a single PDF, and download instantly. No signup, no watermark—secure and high-quality PDF conversion for everyone.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+   <link rel="icon" type="image/png" sizes="128x128" href="{{ url_for('static', filename='favicon.png') }}">
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --dark: #111827; --dark-lighter: #1f2937; --dark-light: #374151; }
+        body { background-color: var(--dark); color: #e5e7eb; font-family: 'Inter', sans-serif; }
+        .navbar { background: rgba(17, 24, 39, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(99, 102, 241, 0.1); }
+        .nav-link { position: relative; transition: all 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
+        .spinner { display: inline-block; width: 40px; height: 40px; border: 3px solid rgba(99, 102, 241, 0.3); border-radius: 50%; border-top-color: var(--primary); animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @media (max-width: 767px) {
+            #nav-menu { background-color: #1f2937 !important; border-radius: 0 0 1rem 1rem; box-shadow: 0 8px 32px 0 rgba(31,41,55,0.18); }
+            #nav-menu a { background-color: #374151; margin-bottom: 0.25rem; border-radius: 0.5rem; display: block; width: 90%; margin-left: auto; margin-right: auto; padding-left: 1.5rem; padding-right: 1.5rem; }
+            #nav-menu a:last-child { margin-bottom: 0; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-gray-950 bg-opacity-90 shadow-lg">
+        <div class="container mx-auto px-2 sm:px-4">
+            <div class="flex items-center justify-between h-16 relative">
+                <a href="/" class="text-lg sm:text-xl md:text-2xl font-bold text-indigo-400 tracking-wide">Doclumin</a>
+                <button id="nav-toggle" class="md:hidden text-gray-300 focus:outline-none text-xl sm:text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div id="nav-menu" class="hidden md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 items-center absolute md:static top-16 left-0 w-full md:w-auto bg-gray-950 md:bg-transparent z-50 text-base sm:text-lg">
+                    <a href="/image-tools" class="nav-link block text-gray-300 hover:text-indigo-400 transition px-3 py-2">Image Tools</a>
+                    <a href="/pdf-tools" class="nav-link block text-gray-300 hover:text-indigo-400 transition px-3 py-2">PDF Tools</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Tool Card -->
+    <section class="py-32">
+        <div class="container mx-auto px-2 sm:px-4 flex flex-col items-center">
+            <div id="pdfmaker" class="flex flex-col bg-gray-900 rounded-2xl shadow-lg p-4 md:p-8 min-h-[380px] w-full max-w-md mx-auto items-center mb-6">
+                <h2 class="text-lg sm:text-xl font-bold text-red-300 mb-4 text-center">Image to PDF</h2>
+                <div class="flex flex-col items-center justify-center gap-3 mb-6 min-h-[120px] w-full">
+                    <div class="flex items-center gap-3 w-full max-w-xs mx-auto bg-gray-800 rounded-full px-4 py-2 shadow">
+                        <i class="fas fa-file-pdf text-red-400"></i>
+                        <span class="text-gray-200 text-base md:text-lg">Convert images to PDF</span>
+                    </div>
+                    <div class="flex items-center gap-3 w-full max-w-xs mx-auto bg-gray-800 rounded-full px-4 py-2 shadow">
+                        <i class="fas fa-images text-indigo-400"></i>
+                        <span class="text-gray-200 text-base md:text-lg">Supports multiple images</span>
+                    </div>
+                    <div class="flex items-center gap-3 w-full max-w-xs mx-auto bg-gray-800 rounded-full px-4 py-2 shadow">
+                        <i class="fas fa-eye text-yellow-400"></i>
+                        <span class="text-gray-200 text-base md:text-lg">Fast & easy download</span>
+                    </div>
+                </div>
+                <div class="w-full max-w-xs mb-2">
+                    <label for="pdfmaker-input" class="flex items-center justify-center gap-2 bg-gray-800 hover:bg-red-600 hover:text-white text-gray-200 rounded-lg px-4 py-2 cursor-pointer transition font-medium shadow border border-gray-700">
+                        <i class="fas fa-upload"></i>
+                        <span>Select Images</span>
+                    </label>
+                    <input type="file" id="pdfmaker-input" accept="image/*" class="hidden" multiple>
+                    <span id="pdfmaker-filename" class="block mt-1 text-xs text-gray-400 truncate"></span>
+                </div>
+                <button id="pdfmaker-btn" class="mt-auto bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded shadow w-full max-w-xs">Convert to PDF</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="container mx-auto px-2 sm:px-4">
+            <div class="flex flex-col items-center">
+                <a href="#" class="text-2xl font-bold text-indigo-400 mb-2 tracking-wide">Doclumin</a>
+                <p class="text-sm mb-4 text-gray-400">© 2024 Doclumin. All rights reserved. Powered by rembg &amp; open-source tools.</p>
+                <div class="flex justify-center space-x-6 mt-2">
+                    <a href="#" class="hover:text-indigo-400 transition-colors text-xl" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="hover:text-indigo-400 transition-colors text-xl" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="hover:text-indigo-400 transition-colors text-xl" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+                <p class="text-xs text-gray-600 mt-6">Made with <span class="text-pink-400">♥</span> for creators &amp; developers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Processing Section -->
+    <div id="processing-section" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-dark-lighter p-12 rounded-2xl text-center max-w-md">
+            <div class="spinner"></div>
+            <h3 class="text-2xl font-medium text-white mt-6 mb-3">Processing your image...</h3>
+            <p class="text-gray-400">This may take a few moments. Please wait.</p>
+        </div>
+    </div>
+    <script>
+        // Navigation hamburger
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        navToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('hidden');
+        });
+
+        // Download helper
+        function downloadPDF(dataUrl, filename) {
+            const base64Data = dataUrl.split(',')[1];
+            const byteCharacters = atob(base64Data);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(() => {
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }, 100);
+        }
+
+        // PDF Maker logic
+        document.getElementById('pdfmaker-btn').onclick = async function() {
+            const files = document.getElementById('pdfmaker-input').files;
+            if (!files.length) return alert('Select at least one image');
+            const formData = new FormData();
+            for (let i = 0; i < files.length; i++) {
+                formData.append('images', files[i]);
+            }
+            const res = await fetch('/pdfmaker', { method: 'POST', body: formData });
+            const data = await res.json();
+            if (data.success) downloadPDF(data.processed_pdf, `images.pdf`);
+            else alert(data.error);
+        };
+
+        // Filename display
+        const input = document.getElementById('pdfmaker-input');
+        const filename = document.getElementById('pdfmaker-filename');
+        if (input && filename) {
+            input.addEventListener('change', function() {
+                if (input.files.length === 1) {
+                    filename.textContent = input.files[0].name;
+                } else if (input.files.length > 1) {
+                    filename.textContent = input.files.length + ' files selected';
+                } else {
+                    filename.textContent = '';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

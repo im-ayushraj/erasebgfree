@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GH6YNY33VG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-GH6YNY33VG');
+</script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Online Watermark Tool – Instantly Add Text Watermarks to Images | Doclumin</title>
+    <meta name="description" content="Add text watermarks to your images online for free with Doclumin’s easy watermark tool. Customize color, position, and preview instantly. No signup, no watermark—fast, secure, and perfect for web, social media, and business use.">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="128x128" href="{{ url_for('static', filename='favicon.png') }}">
+    <style>
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --secondary: #10b981; --dark: #111827; --dark-lighter: #1f2937; --dark-light: #374151; }
+        body { background-color: var(--dark); color: #e5e7eb; font-family: 'Inter', sans-serif; }
+        .navbar { background: rgba(17, 24, 39, 0.8); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(99, 102, 241, 0.1); }
+        .nav-link { position: relative; transition: all 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--primary); transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
+        .spinner { display: inline-block; width: 40px; height: 40px; border: 3px solid rgba(99, 102, 241, 0.3); border-radius: 50%; border-top-color: var(--primary); animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @media (max-width: 767px) {
+            #nav-menu { background-color: #1f2937 !important; border-radius: 0 0 1rem 1rem; box-shadow: 0 8px 32px 0 rgba(31,41,55,0.18); }
+            #nav-menu a { background-color: #374151; margin-bottom: 0.25rem; border-radius: 0.5rem; display: block; width: 90%; margin-left: auto; margin-right: auto; padding-left: 1.5rem; padding-right: 1.5rem; }
+            #nav-menu a:last-child { margin-bottom: 0; }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="navbar fixed top-0 left-0 right-0 z-50 bg-gray-950 bg-opacity-90 shadow-lg">
+        <div class="container mx-auto px-2 sm:px-4">
+            <div class="flex items-center justify-between h-16 relative">
+                <a href="/" class="text-lg sm:text-xl md:text-2xl font-bold text-indigo-400 tracking-wide">Doclumin</a>
+                <button id="nav-toggle" class="md:hidden text-gray-300 focus:outline-none text-xl sm:text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div id="nav-menu" class="hidden md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 items-center absolute md:static top-16 left-0 w-full md:w-auto bg-gray-950 md:bg-transparent z-50 text-base sm:text-lg">
+                    <a href="/image-tools" class="nav-link block text-gray-300 hover:text-indigo-400 transition px-3 py-2">Image Tools</a>
+                    <a href="/pdf-tools" class="nav-link block text-gray-300 hover:text-indigo-400 transition px-3 py-2">PDF Tools</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Tool Card -->
+    <section class="py-32">
+        <div class="container mx-auto px-2 sm:px-4 flex flex-col items-center">
+            <div id="watermark" class="flex flex-col bg-gray-900 rounded-2xl shadow-lg p-4 md:p-8 min-h-[380px] w-full max-w-md mx-auto items-center mb-6">
+                <h2 class="text-lg sm:text-xl font-bold text-blue-300 mb-4 text-center">Watermark</h2>
+                <div class="flex flex-col items-center justify-center gap-3 mb-6 min-h-[120px] w-full">
+                    <div class="flex items-center gap-3 w-full max-w-xs mx-auto bg-gray-800 rounded-full px-4 py-2 shadow">
+                        <i class="fas fa-water text-blue-400"></i>
+                        <span class="text-gray-200 text-base md:text-lg">Add text watermark</span>
+                    </div>
+                    <div class="flex items-center gap-3 w-full max-w-xs mx-auto bg-gray-800 rounded-full px-4 py-2 shadow">
+                        <i class="fas fa-font text-indigo-400"></i>
+                        <span class="text-gray-200 text-base md:text-lg">Choose color & position</span>
+                    </div>
+                    <div class="flex items-center gap-3 w-full max-w-xs mx-auto bg-gray-800 rounded-full px-4 py-2 shadow">
+                        <i class="fas fa-eye text-yellow-400"></i>
+                        <span class="text-gray-200 text-base md:text-lg">Preview before download</span>
+                    </div>
+                </div>
+                <div class="w-full max-w-xs mb-2">
+                    <label for="watermark-input" class="flex items-center justify-center gap-2 bg-gray-800 hover:bg-blue-600 hover:text-white text-gray-200 rounded-lg px-4 py-2 cursor-pointer transition font-medium shadow border border-gray-700">
+                        <i class="fas fa-upload"></i>
+                        <span>Select Image</span>
+                    </label>
+                    <input type="file" id="watermark-input" accept="image/*" class="hidden">
+                    <span id="watermark-filename" class="block mt-1 text-xs text-gray-400 truncate"></span>
+                </div>
+                <input type="text" id="watermark-text" placeholder="Watermark text" class="w-full max-w-xs mb-2 px-2 py-1 rounded border border-gray-700 bg-gray-800 text-gray-200">
+                <div class="flex gap-2 mb-2 w-full max-w-xs">
+                    <input type="color" id="watermark-color" value="#6366f1" class="w-12 h-10 rounded border border-gray-700 bg-gray-800">
+                    <select id="watermark-position" class="w-full px-2 py-1 rounded border border-gray-700 bg-gray-800 text-gray-200">
+                        <option value="bottom-right">Bottom Right</option>
+                        <option value="bottom-left">Bottom Left</option>
+                        <option value="top-right">Top Right</option>
+                        <option value="top-left">Top Left</option>
+                        <option value="center">Center</option>
+                    </select>
+                </div>
+                <button id="watermark-btn" class="mt-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded shadow w-full max-w-xs">Add Watermark</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="container mx-auto px-2 sm:px-4">
+            <div class="flex flex-col items-center">
+                <a href="#" class="text-2xl font-bold text-indigo-400 mb-2 tracking-wide">Doclumin</a>
+                <p class="text-sm mb-4 text-gray-400">© 2024 Doclumin. All rights reserved. Powered by rembg &amp; open-source tools.</p>
+                <div class="flex justify-center space-x-6 mt-2">
+                    <a href="#" class="hover:text-indigo-400 transition-colors text-xl" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="hover:text-indigo-400 transition-colors text-xl" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="hover:text-indigo-400 transition-colors text-xl" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+                <p class="text-xs text-gray-600 mt-6">Made with <span class="text-pink-400">♥</span> for creators &amp; developers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Processing Section -->
+    <div id="processing-section" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-dark-lighter p-12 rounded-2xl text-center max-w-md">
+            <div class="spinner"></div>
+            <h3 class="text-2xl font-medium text-white mt-6 mb-3">Processing your image...</h3>
+            <p class="text-gray-400">This may take a few moments. Please wait.</p>
+        </div>
+    </div>
+    <script>
+        // Navigation hamburger
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        navToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('hidden');
+        });
+
+        // Download helper
+        function downloadImage(dataUrl, filename) {
+            const base64Data = dataUrl.split(',')[1];
+            const byteCharacters = atob(base64Data);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: dataUrl.includes('jpeg') ? 'image/jpeg' : 'image/png' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(() => {
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }, 100);
+        }
+
+        // Watermark logic
+        document.getElementById('watermark-btn').onclick = async function() {
+            const file = document.getElementById('watermark-input').files[0];
+            const text = document.getElementById('watermark-text').value;
+            const color = document.getElementById('watermark-color').value;
+            const position = document.getElementById('watermark-position').value;
+            if (!file || !text || !color || !position) return alert('Select image and set watermark options');
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('text', text);
+            formData.append('color', color);
+            formData.append('position', position);
+            const res = await fetch('/watermark', { method: 'POST', body: formData });
+            const data = await res.json();
+            if (data.success) downloadImage(data.processed_image, `watermarked.png`);
+            else alert(data.error);
+        };
+
+        // Filename display
+        const input = document.getElementById('watermark-input');
+        const filename = document.getElementById('watermark-filename');
+        if (input && filename) {
+            input.addEventListener('change', function() {
+                if (input.files.length === 1) {
+                    filename.textContent = input.files[0].name;
+                } else {
+                    filename.textContent = '';
+                }
+            });
+        }
+    </script>
+
+    <!-- Ad Script -->
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'e920f171ecc20a5f8ba27207472f112f',
+            'format' : 'iframe',
+            'height' : 600,
+            'width' : 160,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/e920f171ecc20a5f8ba27207472f112f/invoke.js"></script>
+</body>
+</html>
